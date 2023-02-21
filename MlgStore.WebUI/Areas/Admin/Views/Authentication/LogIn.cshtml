@@ -3,32 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <title>MLG-Store | Giriş</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="Admin/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/Admin/dist/css/adminlte.min.css">
-  <link href="~/admin/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="Admin/dist/css/adminlte.min.css">
 
+  <link href="~/admin/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
+  <div class="login-logo">
+    <a><b>MLG</b>Store</a>
+  </div>
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>MLG</b>Store</a>
-    </div>
-    <div class="card-body">
-      <p class="login-box-msg">Kullanıcı Adı ve Şifrenizi Giriniz</p>
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">MLG-Store Admin Paneli Giriş</p>
 
-      <form action="../../index3.html" method="post">
+      <form>
         <div class="input-group mb-3">
-          <input id="userNameText" type="text" class="form-control" placeholder="Kullanıcı Adı">
+          <input id="userNameTxt" type="text" class="form-control" placeholder="Kullanıcı Adı Giriniz...">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -36,61 +36,68 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input id="passwordText" type="password" class="form-control" placeholder="Şifre">
+          <input id="passwordTxt" type="password" class="form-control" placeholder="Şifrenizi Giriniz...">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        <div class="row">          
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
           <!-- /.col -->
-          <div class="col">
-            <button id="btnLogIn" type="submit" class="btn btn-primary btn-block">Giriş</button>
+          <div class="col-4">
+            <button id="btnLogIn" type="button" class="btn btn-primary btn-block">Giriş</button>
           </div>
           <!-- /.col -->
         </div>
-      </form>
-
-    </div>
-    <!-- /.card-body -->
+      </form>     
+          
+    <!-- /.login-card-body -->
   </div>
-  <!-- /.card -->
 </div>
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="/Admin/plugins/jquery/jquery.min.js"></script>
+<script src="Admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="/Admin/dist/js/adminlte.min.js"></script>
+<script src="Admin/dist/js/adminlte.min.js"></script>
 
 <script src="~/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script>
-    $(document).ready(function ()
+
+    $(document).ready(function () 
     {
-        $("#btnLogIn").click(function ()
+        
+        $("#btnLogIn").click(function()
         {
             var formData = 
             {
-                UserName : $("#userNameText").val(),
-                Password : $("#passwordText").val()
+                UserName : $("#userNameTxt").val(),
+                Password : $("#passwordTxt").val()
             };
-
-
+            
             $.ajax({
 
-                url : "/Admin/Authentication/LogIn",
-                method : "post",
-                datatype : "json",
-                data : {dto : formData},
-                success : function (response)
+                url:"/Admin/Authentication/LogIn",
+                method:"post",
+                datatype:"json",
+                data:{dto : formData},
+                success: function (response)
                 {
                     if(response.isSuccess)
                     {
-                        window.location.href = "/Admin/Home/Index";
+                        window.location.href="/Admin/Home/Index";
                     }
                     else
                     {
@@ -103,27 +110,15 @@
 
                         });
                     }
-
-
                 }
 
-
-
-
             });
-
-
-
-
+        
         });
-
+        
     });
 
-
-
 </script>
-
-
 
 
 

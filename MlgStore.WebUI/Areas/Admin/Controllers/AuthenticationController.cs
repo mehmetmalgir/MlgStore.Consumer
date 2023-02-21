@@ -13,6 +13,14 @@ namespace MlgStore.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AuthenticationController : Controller
     {
+        [HttpGet]
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+
+
         [HttpPost]
         public IActionResult LogIn(LogInDto dto)
         {
@@ -22,8 +30,8 @@ namespace MlgStore.WebUI.Areas.Admin.Controllers
             if (result.IsValid)
             {
                 MlgStoreDbContext ctx = new MlgStoreDbContext();
-                var user = ctx.UsersAdmins.SingleOrDefault(x => x.UserName == dto.UserName && x.Password == dto.Password);
-
+                var user = ctx.UsersAdmin.SingleOrDefault(x => x.UserName == dto.UserName && x.Password == dto.Password);
+                
                 if (user == null)
                 {
                     return Json(new { isSuccess = false, Message = "Kullanıcı Bulunamadı!" });
@@ -38,7 +46,7 @@ namespace MlgStore.WebUI.Areas.Admin.Controllers
             else
             {
                 string errorMessages = "<div class = 'alert alert-warning'>";
-                foreach (var item in result.Errors)
+                foreach (ValidationFailure item in result.Errors)
                 {
                     errorMessages += $"<div>{item.ErrorMessage}</div>";
                 }

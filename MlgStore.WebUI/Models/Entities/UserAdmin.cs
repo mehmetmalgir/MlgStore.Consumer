@@ -1,6 +1,6 @@
 ﻿namespace MlgStore.WebUI.Models.Entities
 {
-    public class UsersAdmin
+    public class UserAdmin
     {
         public int Id { get; set; }
         public string UserName { get; set; }
