@@ -10,7 +10,7 @@ namespace MlgStore.WebUI.Areas.Admin.Models
         public List<ApiGenderDto> Genders { get; set; }
         public List<ApiShipperDto> Shippers { get; set; }
         public List<ApiSizeDto> Sizes { get; set; }
-        public ApiProductPhotos Photos { get; set; }
+        
 
     }
 }
