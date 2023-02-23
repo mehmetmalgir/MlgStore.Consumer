@@ -2,7 +2,7 @@
 {
     public class ApiGenderDto
     {
-
+        public int Id { get; set; }
         public string GenderType { get; set; }
 
 
