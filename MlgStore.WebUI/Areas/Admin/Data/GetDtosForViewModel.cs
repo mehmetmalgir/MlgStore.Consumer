@@ -52,6 +52,12 @@ namespace MlgStore.WebUI.Areas.Admin.Data
                 jsonContent = msg.Content.ReadAsStringAsync().Result;
                 viewModel.Sizes = JsonConvert.DeserializeObject<List<ApiSizeDto>>(jsonContent);
 
+                client = new HttpClient();
+                client.BaseAddress = new Uri("https://localhost:44365/api/Shippers");
+                msg = client.GetAsync(client.BaseAddress).Result;
+                jsonContent = msg.Content.ReadAsStringAsync().Result;
+                viewModel.Shippers = JsonConvert.DeserializeObject<List<ApiShipperDto>>(jsonContent);
+
                 return viewModel;
             }
 
