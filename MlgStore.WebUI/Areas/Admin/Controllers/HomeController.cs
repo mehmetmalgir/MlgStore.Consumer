@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MlgStore.WebUI.Areas.Admin.Data;
 
 namespace MlgStore.WebUI.Areas.Admin.Controllers
 {
@@ -8,12 +10,11 @@ namespace MlgStore.WebUI.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-            string jsonStr = HttpContext.Session.GetString("LoggedAdminUser");
+            var jsonStr = HttpContext.Session.GetString("LoggedAdminUser");
 
-
-            if(string.IsNullOrEmpty(jsonStr))            
-                return Redirect("/Admin/Authentication/LogIn");
-           
+            if (string.IsNullOrEmpty(jsonStr))
+                return Redirect("Admin/Authentication/LogIn");
+            
 
 
             return View();
