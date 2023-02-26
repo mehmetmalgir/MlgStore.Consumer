@@ -8,7 +8,7 @@ namespace MlgStore.WebUI.Models.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-NU8CUCN;database=MlgStoreDb;trusted_connection=true;");
+            optionsBuilder.UseSqlServer("server=LENOVO\\SQLEXPRESS;database=MlgStoreDb;trusted_connection=true;");
         }
 
        
