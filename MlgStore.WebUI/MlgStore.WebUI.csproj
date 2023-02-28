@@ -11,9 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Anonymous\popup\assets\images\demos\demo-6\products\" />
-    <Folder Include="wwwroot\Anonymous\popup\assets\images\popup\quickView\" />
-    <Folder Include="wwwroot\Anonymous\popup\popup\" />
     <Folder Include="wwwroot\CategoryPhotos\" />
     <Folder Include="wwwroot\CustomerPanel\" />
   </ItemGroup>
