@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MlgStore.WebUI.Areas.Admin.Data;
 using MlgStore.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,12 @@ namespace MlgStore.WebUI.Controllers
         
         public IActionResult Index()
         {
-            return View();
+            GetDtosForViewModel gDto = new GetDtosForViewModel();
+            var viewModel = gDto.GetProductsForViewModel();
+
+
+
+            return View(viewModel);
         }
 
     }
