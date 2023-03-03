@@ -15,12 +15,7 @@ namespace MlgStore.WebUI.Controllers
         
         public IActionResult Index()
         {
-            GetDtosForViewModel gDto = new GetDtosForViewModel();
-            var viewModel = gDto.GetProductsForViewModel();
-
-
-
-            return View(viewModel);
+            return View();
         }
 
     }

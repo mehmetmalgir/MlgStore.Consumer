@@ -17,9 +17,9 @@ namespace MlgStore.WebUI.Areas.Admin.Data
             string jsonContent = string.Empty;
 
 
-            client.BaseAddress = new Uri("https://localhost:44365/api/Products");
+            client.BaseAddress = new Uri("https://localhost:44365/api/Products");            
             msg = client.GetAsync(client.BaseAddress).Result;
-
+            
             if (msg.StatusCode == HttpStatusCode.OK)
             {
 
