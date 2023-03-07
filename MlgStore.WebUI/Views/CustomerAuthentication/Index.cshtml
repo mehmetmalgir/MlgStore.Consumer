@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col -6">
-            <div class="card">
+            <div class="card" style="margin-top:200px">
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">MLG-Store Müşteri Giriş</p>
 
@@ -49,33 +49,62 @@
         <div class="col-6">
             <div class="card card-primary">
                 <div class="card-header">
+                    <strong>Yeni Müşteri Kayıt</strong>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputProductName">Kategori Adı</label>
-                            <input id="txtCategoryName" type="text" class="form-control" placeholder="Kategori Adını Giriniz...">
+                            <label for="exampleInputProductName">İsim</label>
+                            <input id="txtFirstName" type="text" class="form-control" placeholder="Adınızı Giriniz...">
                         </div>
+
                         <div class="form-group">
-                            <label for="exampleInputProductQuantity">Kategori Açıklaması</label>
-                            <input id="txtDescription" type="text" class="form-control" placeholder="Kategori Açıklamasını Giriniz...">
+                            <label for="exampleInputProductQuantity">Soyisim</label>
+                            <input id="txtLastName" type="text" class="form-control" placeholder="Soyadınızı Giriniz...">
                         </div>
+
                         <div class="form-group">
-                            <label for="exampleInputFile">Kategori Fotoğrafı</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input id="categoryPhotoFile" type="file" class="custom-file-input">
-                                    <label class="custom-file-label" for="exampleInputFile">Kategori Fotoğrafı Seç</label>
-                                </div>
-                            </div>
+                            <label for="exampleInputProductQuantity">Adres (1)</label>
+                            <input id="txtAddress1" type="text" class="form-control" placeholder="Adresinizi Giriniz...">
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">Adres (2)</label>
+                            <input id="txtAddress2" type="text" class="form-control" placeholder="Adresinizi Giriniz...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">İl</label>
+                            <input id="txtCity" type="text" class="form-control" placeholder="İl...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">İlçe</label>
+                            <input id="txtDistrict" type="text" class="form-control" placeholder="İlçe...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">Telefon</label>
+                            <input id="txtPhone" type="text" class="form-control" placeholder="Telefon Numaranızı Giriniz...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">Email</label>
+                            <input id="txtEmail" type="email" class="form-control" placeholder="Email Giriniz...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">Şifre</label>
+                            <input id="txtPassword" type="password" class="form-control" placeholder="Şifrenizi Giriniz...">
+                        </div>
+
                     </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button id="btnNewCategorySave" type="button" class="btn btn-primary">KAYDET</button>
+                        <button id="btnNewUserRegister" type="button" class="btn btn-primary">KAYIT OL</button>
                     </div>
                 </form>
             </div>
@@ -147,7 +176,14 @@
                 });
 
 
-            });        
+            }); 
+            
+
+
+
+
+
+
         
         });
 
