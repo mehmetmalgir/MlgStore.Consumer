@@ -141,6 +141,7 @@
 
         $(document).ready(function ()
         {
+
             $("#btnLogIn").click(function ()
             {
                 var formData =
@@ -176,17 +177,66 @@
                 });
 
 
-            }); 
-            
+            });
 
 
+            $("#btnNewUserRegister").click(function () {
+
+                var formData =
+                {
+                    Email: $("#txtEmail").val(),
+                    Password: $("#txtPassword").val(),
+                    FirstName: $("#txtFirstName").val(),
+                    LastName: $("#txtLastName").val(),
+                    Address1: $("#txtAddress1").val(),
+                    Address2: $("#txtAddress2").val(),
+                    City: $("#txtCity").val(),
+                    District: $("#txtDistrict").val(),
+                    Phone: $("#txtPhone").val()
+
+                };
+
+                $.ajax
+                ({
+
+                    url: "/CustomerAuthentication/Register",
+                    method: "post",
+                    datatype: "json",
+                    data: { dto: formData },
+                    success: function (response) {
+                        if (response.isSuccess) 
+                        {
+                            Swal.fire
+                            ({
+
+                                icon: 'success',
+                                title: 'Yeni Üye',
+                                text: 'Yeni Üye Kaydı Başarıyla Gerçekleştirildi...'
+
+                            });
+
+                            window.location.href = "/Home/Index";
+                        }
+                        else 
+                        {
+                            Swal.fire
+                            ({
+
+                                icon: 'error',
+                                title: 'İşlem Başarısız',
+                                html: response.message
+
+                            });
+                        }
+                    }
 
 
+                });
 
 
-        
+            });
+
         });
-
 
     </script>
 
