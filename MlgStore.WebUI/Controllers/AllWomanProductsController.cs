@@ -7,6 +7,7 @@ using System.Net;
 using System;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Security.Policy;
+using MlgStore.WebUI.Methods;
 
 namespace MlgStore.WebUI.Controllers
 {
@@ -14,57 +15,65 @@ namespace MlgStore.WebUI.Controllers
 	{
 		public IActionResult Index()
 		{
-			HttpClient client = new HttpClient();
-			HttpResponseMessage msg = null;
-			string jsonContent = string.Empty;
+			GetProducts gp = new GetProducts();
+			Uri uri = new Uri("https://localhost:44365/api/Products/getbygender?genderId=2");
+			var viewModel = gp.GetProductsByGender(uri);
+			return View(viewModel);	
 
 
-			client.BaseAddress = new Uri("https://localhost:44365/api/Products/getbygender?genderId=2");
-			
-			msg = client.GetAsync(client.BaseAddress).Result;
-			
-			if (msg.StatusCode == HttpStatusCode.OK)
-			{
+			#region Without Method
+			//HttpClient client = new HttpClient();
+			//HttpResponseMessage msg = null;
+			//string jsonContent = string.Empty;
 
-				ProductIndexViewModel viewModel = new ProductIndexViewModel();
 
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-				viewModel.Products = JsonConvert.DeserializeObject<List<ApiProductDto>>(jsonContent);
+			//client.BaseAddress = new Uri("https://localhost:44365/api/Products/getbygender?genderId=2");
 
-				client = new HttpClient();
-				client.BaseAddress = new Uri("https://localhost:44365/api/Categories");
-				msg = client.GetAsync(client.BaseAddress).Result;
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-				viewModel.Categories = JsonConvert.DeserializeObject<List<ApiCategoriesDto>>(jsonContent);
+			//msg = client.GetAsync(client.BaseAddress).Result;
 
-				client = new HttpClient();
-				client.BaseAddress = new Uri("https://localhost:44365/api/Colors");
-				msg = client.GetAsync(client.BaseAddress).Result;
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-				viewModel.Colors = JsonConvert.DeserializeObject<List<ApiColorDto>>(jsonContent);
+			//if (msg.StatusCode == HttpStatusCode.OK)
+			//{
 
-				client = new HttpClient();
-				client.BaseAddress = new Uri("https://localhost:44365/api/Genders");
-				msg = client.GetAsync(client.BaseAddress).Result;
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-				viewModel.Genders = JsonConvert.DeserializeObject<List<ApiGenderDto>>(jsonContent);
+			//	ProductIndexViewModel viewModel = new ProductIndexViewModel();
 
-				client = new HttpClient();
-				client.BaseAddress = new Uri("https://localhost:44365/api/Sizes");
-				msg = client.GetAsync(client.BaseAddress).Result;
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-				viewModel.Sizes = JsonConvert.DeserializeObject<List<ApiSizeDto>>(jsonContent);
+			//	jsonContent = msg.Content.ReadAsStringAsync().Result;
+			//	viewModel.Products = JsonConvert.DeserializeObject<List<ApiProductDto>>(jsonContent);
 
-				client = new HttpClient();
-				client.BaseAddress = new Uri("https://localhost:44365/api/Shippers");
-				msg = client.GetAsync(client.BaseAddress).Result;
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-				viewModel.Shippers = JsonConvert.DeserializeObject<List<ApiShipperDto>>(jsonContent);
+			//	client = new HttpClient();
+			//	client.BaseAddress = new Uri("https://localhost:44365/api/Categories");
+			//	msg = client.GetAsync(client.BaseAddress).Result;
+			//	jsonContent = msg.Content.ReadAsStringAsync().Result;
+			//	viewModel.Categories = JsonConvert.DeserializeObject<List<ApiCategoriesDto>>(jsonContent);
 
-				return View(viewModel);
-			}
+			//	client = new HttpClient();
+			//	client.BaseAddress = new Uri("https://localhost:44365/api/Colors");
+			//	msg = client.GetAsync(client.BaseAddress).Result;
+			//	jsonContent = msg.Content.ReadAsStringAsync().Result;
+			//	viewModel.Colors = JsonConvert.DeserializeObject<List<ApiColorDto>>(jsonContent);
 
-			return null;
+			//	client = new HttpClient();
+			//	client.BaseAddress = new Uri("https://localhost:44365/api/Genders");
+			//	msg = client.GetAsync(client.BaseAddress).Result;
+			//	jsonContent = msg.Content.ReadAsStringAsync().Result;
+			//	viewModel.Genders = JsonConvert.DeserializeObject<List<ApiGenderDto>>(jsonContent);
+
+			//	client = new HttpClient();
+			//	client.BaseAddress = new Uri("https://localhost:44365/api/Sizes");
+			//	msg = client.GetAsync(client.BaseAddress).Result;
+			//	jsonContent = msg.Content.ReadAsStringAsync().Result;
+			//	viewModel.Sizes = JsonConvert.DeserializeObject<List<ApiSizeDto>>(jsonContent);
+
+			//	client = new HttpClient();
+			//	client.BaseAddress = new Uri("https://localhost:44365/api/Shippers");
+			//	msg = client.GetAsync(client.BaseAddress).Result;
+			//	jsonContent = msg.Content.ReadAsStringAsync().Result;
+			//	viewModel.Shippers = JsonConvert.DeserializeObject<List<ApiShipperDto>>(jsonContent);
+
+			//	return View(viewModel);
+			//}
+
+			//return null; 
+			#endregion
 		}
 	}
 }
