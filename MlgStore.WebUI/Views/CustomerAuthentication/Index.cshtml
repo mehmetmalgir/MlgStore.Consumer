@@ -1,0 +1,159 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col -6">
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">MLG-Store Müşteri Giriş</p>
+
+                    <form>
+                        <div class="input-group mb-3">
+                            <input id="userEmailTxt" type="email" class="form-control" placeholder="Email Adresinizi Giriniz...">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="userPasswordTxt" type="password" class="form-control" placeholder="Şifrenizi Giriniz...">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                        Beni Hatırla
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-4">
+                                <button id="btnLogIn" type="button" class="btn btn-primary btn-block">Giriş</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputProductName">Kategori Adı</label>
+                            <input id="txtCategoryName" type="text" class="form-control" placeholder="Kategori Adını Giriniz...">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputProductQuantity">Kategori Açıklaması</label>
+                            <input id="txtDescription" type="text" class="form-control" placeholder="Kategori Açıklamasını Giriniz...">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Kategori Fotoğrafı</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input id="categoryPhotoFile" type="file" class="custom-file-input">
+                                    <label class="custom-file-label" for="exampleInputFile">Kategori Fotoğrafı Seç</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button id="btnNewCategorySave" type="button" class="btn btn-primary">KAYDET</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section styles {
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Admin/dist/css/adminlte.min.css">
+
+    <link href="~/admin/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+}
+
+@section scripts {
+
+    <!-- jQuery -->
+    <script src="/Admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Admin/dist/js/adminlte.min.js"></script>
+
+    <script src="~/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+
+        $(document).ready(function ()
+        {
+            $("#btnLogIn").click(function ()
+            {
+                var formData =
+                {
+                    Email: $("#userEmailTxt").val(),
+                    Password: $("#userPasswordTxt").val()
+                };
+
+                $.ajax({
+
+                    url: "/CustomerAuthentication/LogIn",
+                    method: "post",
+                    datatype: "json",
+                    data: { dto: formData },
+                    success: function (response) {
+                        if (response.isSuccess) 
+                        {
+                            window.location.href = "/Home/Index";
+                        }
+                        else 
+                        {
+                            Swal.fire
+                            ({
+
+                                icon: 'error',
+                                title: 'İşlem Başarısız',
+                                html: response.message
+
+                            });
+                        }
+                    }
+
+                });
+
+
+            });        
+        
+        });
+
+
+    </script>
+
+
+
+}

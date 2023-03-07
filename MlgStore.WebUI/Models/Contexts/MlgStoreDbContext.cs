@@ -14,6 +14,7 @@ namespace MlgStore.WebUI.Models.Contexts
        
         public DbSet<UserAdmin> UsersAdmin { get; set; }
 
+        public DbSet<Customer> Customers { get; set; }
 
 
 
