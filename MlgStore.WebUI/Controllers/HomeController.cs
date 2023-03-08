@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MlgStore.WebUI.Areas.Admin.Data;
 using MlgStore.WebUI.Models;
@@ -15,7 +16,9 @@ namespace MlgStore.WebUI.Controllers
         
         public IActionResult Index()
         {
-            return View();
+			
+
+			return View();
         }
 
     }
