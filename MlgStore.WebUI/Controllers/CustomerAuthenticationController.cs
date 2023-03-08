@@ -10,6 +10,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net;
 using System.Text;
+using MlgStore.WebUI.Models.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MlgStore.WebUI.Controllers
 {
@@ -38,9 +40,10 @@ namespace MlgStore.WebUI.Controllers
 
                 var jsonStr = JsonConvert.SerializeObject(customer);
 
-                HttpContext.Session.SetString("LoggedCustomerUser", jsonStr);
-
-                return Json(new { isSuccess = true });
+                HttpContext.Session.SetString("LoggedCustomerUser", jsonStr);   
+                
+				
+				return Json(new { isSuccess = true });
 
             }
             else
