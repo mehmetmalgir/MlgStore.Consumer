@@ -18,11 +18,27 @@ namespace MlgStore.WebUI.Controllers
         
         public IActionResult Index()
         {
-          
-            return View();
-
 			
+            return View();
+            			
         }
+
+        public IActionResult HideAndShowWithLogIn()
+        {
+
+			var jsonContent = HttpContext.Session.GetString("LoggedCustomerUser");
+			if (jsonContent != null)
+			{
+				var customerModel = JsonConvert.DeserializeObject<Customer>(jsonContent);
+				return Json(new { isSuccess = true });
+                
+			}
+
+			return Json(new { isSuccess = false });
+		}
+
+
+
 
     }
 }

@@ -1,6 +1,22 @@
 ﻿@{
 	Layout = null;
 }
+@using MlgStore.WebUI.Models.Entities;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+	var jsonStr = Context.Session.GetString("LoggedCustomerUser");
+	Customer user = new Customer();
+	if(jsonStr != null)
+	{
+		user = JsonConvert.DeserializeObject<Customer>(jsonStr);
+	}
+		
+}
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -39,6 +55,9 @@
 	<link rel="stylesheet" type="text/css" href="/Anonymous/css/main.css">
 	<!--===============================================================================================-->
 
+	
+
+
 </head>
 <body class="animsition">
 
@@ -53,7 +72,7 @@
 					<a href="#" class="logo">
 						<h4><strong>MLG|</strong>Store</h4>
 					</a>
-
+					
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
@@ -117,7 +136,8 @@
 							</li>
 
 							<li>
-								<a id="loginhref" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
+								<a id="logincengo2" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
+								<strong id="kullanıcıAdi">@user.FirstName</strong>
 							</li>
 
 						</ul>
@@ -229,7 +249,7 @@
 				</li>
 
 				<li>
-					<a id="loginhref" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
+					<a id="logincengo" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
 				</li>
 
 			</ul>
@@ -816,6 +836,8 @@
 	<script src="/Anonymous/vendor/slick/slick.min.js"></script>
 	<script src="/Anonymous/js/slick-custom.js"></script>
 	<!--===============================================================================================-->
+	
+
 	<script src="/Anonymous/vendor/parallax100/parallax100.js"></script>
 	<script>
 		$('.parallax100').parallax100();
@@ -892,14 +914,34 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="/Anonymous/js/main.js"></script>
-	<script>
-		$(document).ready(function () {
-			if ( != null) {
-				$("#loginhref").hide();
-			}
 
+	<script>
+		
+		$(document).ready(function () 
+		{
+			$.ajax({
+
+				url: "/Home/HideAndShowWithLogIn",
+				success: function (response) {
+					if (response.isSuccess) 
+					{
+
+						$("#logincengo2").hide();
+						$("#kullanıcıAdi").show();
+
+					}
+					else 
+					{
+						$("#kullanıcıAdi").hide();
+					}
+				}
+
+			});
+		
 		});
+
 	</script>
+	
 	
 
 </body>

@@ -40,10 +40,16 @@ namespace MlgStore.WebUI.Controllers
 
                 var jsonStr = JsonConvert.SerializeObject(customer);
 
-                HttpContext.Session.SetString("LoggedCustomerUser", jsonStr);   
-                
-				
-				return Json(new { isSuccess = true });
+
+                HttpContext.Session.SetString("LoggedCustomerUser", jsonStr);
+
+                Response.Cookies.Append("LoggedCustomerUser", jsonStr);
+
+                string addedCustomer = Request.Cookies["LoggedCustomerUser"];
+
+
+
+                return Json(new { isSuccess = true });
 
             }
             else

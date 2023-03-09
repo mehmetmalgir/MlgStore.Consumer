@@ -159,8 +159,10 @@
                     success: function (response) {
                         if (response.isSuccess) 
                         {                            
-                            window.location.href = "/Home/Index";
+                            
                             $("#loginhref").hide();
+                            window.location.href = "/Home/Index";
+                            
                         }
                         else 
                         {
@@ -177,7 +179,7 @@
 
                 });
 
-
+                
             });
 
 
