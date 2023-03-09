@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MlgStore.WebUI.Areas.Admin.Data;
 using MlgStore.WebUI.Models;
+using MlgStore.WebUI.Models.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,9 +18,10 @@ namespace MlgStore.WebUI.Controllers
         
         public IActionResult Index()
         {
-			
+          
+            return View();
 
-			return View();
+			
         }
 
     }

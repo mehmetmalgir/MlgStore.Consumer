@@ -89,7 +89,7 @@
                             <label for="exampleInputProductQuantity">Telefon</label>
                             <input id="txtPhone" type="text" class="form-control" placeholder="Telefon Numaranızı Giriniz...">
                         </div>
-
+                       
                         <div class="form-group">
                             <label for="exampleInputProductQuantity">Email</label>
                             <input id="txtEmail" type="email" class="form-control" placeholder="Email Giriniz...">
@@ -158,8 +158,9 @@
                     data: { dto: formData },
                     success: function (response) {
                         if (response.isSuccess) 
-                        {
+                        {                            
                             window.location.href = "/Home/Index";
+                            $("#loginhref").hide();
                         }
                         else 
                         {

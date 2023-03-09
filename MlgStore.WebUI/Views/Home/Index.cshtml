@@ -2,8 +2,6 @@
 	Layout = null;
 }
 
-
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -119,7 +117,7 @@
 							</li>
 
 							<li>
-								<a href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>								
+								<a id="loginhref" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
 							</li>
 
 						</ul>
@@ -231,7 +229,7 @@
 				</li>
 
 				<li>
-					<a href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>					
+					<a id="loginhref" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
 				</li>
 
 			</ul>
@@ -894,7 +892,14 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="/Anonymous/js/main.js"></script>
+	<script>
+		$(document).ready(function () {
+			if ( != null) {
+				$("#loginhref").hide();
+			}
 
+		});
+	</script>
 	
 
 </body>
