@@ -1,4 +1,15 @@
-﻿
+﻿@using MlgStore.WebUI.Models.Entities;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    var jsonStr = Context.Session.GetString("LoggedCustomerUser");
+    Customer user = new Customer();
+    if (jsonStr != null)
+    {
+        user = JsonConvert.DeserializeObject<Customer>(jsonStr);
+    }
+
+}
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -136,8 +147,8 @@
                             </li>
 
                             <li>
-                                <a id="loginhref" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>   
-                                
+                                <a id="logincengo1" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
+                                <a id="kullanıcıAdi" href="#"><strong>@($"KULLANICI : {user.FirstName}")</strong></a>                               
                             </li>
 
                         </ul>
@@ -522,7 +533,32 @@
     <!--===============================================================================================-->
     <!--===============================================================================================-->
     <script src="/Anonymous/js/main.js"></script>
-   
+
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+
+                url: "/Home/HideAndShowWithLogIn",
+                success: function (response) {
+                    if (response.isSuccess) {
+
+                        $("#logincengo1").hide();
+                        $("#kullanıcıAdi").show();
+
+                    }
+                    else {
+                        $("#kullanıcıAdi").hide();
+                    }
+                }
+
+            });
+
+        });
+
+    </script>
+
+
     @RenderSection("scripts",false)
 </body>
 </html>
