@@ -1,6 +1,8 @@
 ﻿@using MlgStore.WebUI.Models.Entities;
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
+@using MlgStore.WebUI.Areas.Admin.Models
+@model ProductIndexViewModel
 @{
     var jsonStr = Context.Session.GetString("LoggedCustomerUser");
     Customer user = new Customer();
@@ -557,6 +559,33 @@
         });
 
     </script>
+
+
+    <script>
+
+        $(document).ready(function()
+        {
+            $("#addToCart").click(function()
+            {
+                
+                
+            
+            
+            
+            
+            
+            
+            
+            }); 
+        
+        });
+
+
+    </script>
+
+
+
+
 
 
     @RenderSection("scripts",false)
