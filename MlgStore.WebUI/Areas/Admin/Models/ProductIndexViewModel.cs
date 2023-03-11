@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MlgStore.WebUI.Areas.Admin.Models
 {
@@ -10,7 +11,10 @@ namespace MlgStore.WebUI.Areas.Admin.Models
         public List<ApiGenderDto> Genders { get; set; }
         public List<ApiShipperDto> Shippers { get; set; }
         public List<ApiSizeDto> Sizes { get; set; }
-        
 
+        public static implicit operator List<object>(ProductIndexViewModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

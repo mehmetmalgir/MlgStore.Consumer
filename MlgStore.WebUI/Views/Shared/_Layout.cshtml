@@ -1,8 +1,8 @@
 ﻿@using MlgStore.WebUI.Models.Entities;
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
-@using MlgStore.WebUI.Areas.Admin.Models
-@model ProductIndexViewModel
+@using MlgStore.WebUI.Models.Dtos;
+@model CardProductsDto
 @{
     var jsonStr = Context.Session.GetString("LoggedCustomerUser");
     Customer user = new Customer();
@@ -156,6 +156,10 @@
                             <li>
                                 <a id="logincengo1" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
                                 <a id="kullanıcıAdi" href="#"><strong>@($"KULLANICI : {user.FirstName}")</strong></a>                               
+                            </li>
+
+                            <li>
+                                <a href="/Cart/Index">Sepetim</a>
                             </li>
 
                         </ul>
@@ -578,11 +582,27 @@
                     success: function (response) {
                         if (response.isSuccess) {
 
+                            alert("Sepete Eklenecek...");
+
+                           var products = new Model();
+                           var dataP = $(this).data();
+                           products.append(dataP);
+                                                                                  
+
                             $.ajax({
+                                        
+                                url: "https://localhost:44360/Cart/ShowCartProducts",
+                                method:"post",
+                                datatype: "json",
+                                data: products,
+                                contentType: false,
+                                processData: false,
+                                success : function ()
+                                {
+                                    alert("ulaştı");
 
 
-
-
+                                }
 
 
 
