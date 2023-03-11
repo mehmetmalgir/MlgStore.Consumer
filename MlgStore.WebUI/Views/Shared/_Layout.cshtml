@@ -46,6 +46,11 @@
     <link rel="stylesheet" type="text/css" href="/Anonymous/css/util.css">
     <link rel="stylesheet" type="text/css" href="/Anonymous/css/main.css">
     <!--===============================================================================================-->
+    <link href="~/admin/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+
+
+
     @RenderSection("styles",false)
 </head>
 <body class="animsition">
@@ -502,7 +507,7 @@
 
     <script src="/Anonymous/vendor/bootstrap/js/popper.js"></script>
     <script src="/Anonymous/vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="~/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!--===============================================================================================-->
     <script src="/Anonymous/vendor/select2/select2.min.js"></script>
     <script>
@@ -565,16 +570,46 @@
 
         $(document).ready(function()
         {
-            $("#addToCart").click(function()
+            $(".addToCart").click(function()
             {
-                
-                
-            
-            
-            
-            
-            
-            
+                $.ajax({
+
+                    url: "/Home/HideAndShowWithLogIn",
+                    success: function (response) {
+                        if (response.isSuccess) {
+
+                            $.ajax({
+
+
+
+
+
+
+
+
+
+                            });
+                            
+
+                        }
+                        else {
+
+                            Swal.fire
+                            ({
+
+                                icon: 'error',
+                                title: 'İşlem Başarısız',
+                                text: 'Sepete Ürün Eklemeden Önce Giriş Yapmalı Veya Üye Olmalısınız!'
+
+                            });
+
+
+
+                        }
+                    }
+
+                });
+                                      
             
             }); 
         
