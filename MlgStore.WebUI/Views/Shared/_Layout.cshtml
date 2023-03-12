@@ -1,8 +1,6 @@
 ﻿@using MlgStore.WebUI.Models.Entities;
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
-@using MlgStore.WebUI.Models.Dtos;
-@model CardProductsDto
 @{
     var jsonStr = Context.Session.GetString("LoggedCustomerUser");
     Customer user = new Customer();
@@ -20,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-   
+
 
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/Anonymous/images/icons/favicon.png" />
@@ -69,7 +67,7 @@
                     <div class="right-top-bar flex-w h-full">
 
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            Hesabım                            
+                            Hesabım
                         </a>
 
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
@@ -155,11 +153,11 @@
 
                             <li>
                                 <a id="logincengo1" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
-                                <a id="kullanıcıAdi" href="#"><strong>@($"KULLANICI : {user.FirstName}")</strong></a>                               
+                                <a id="kullanıcıAdi" href="#"><strong>@($"KULLANICI : {user.FirstName}")</strong></a>
                             </li>
 
                             <li>
-                                <a href="/Cart/Index">Sepetim</a>
+                                <a id="cartPage" href="/Cart/Index">Sepetim</a>
                             </li>
 
                         </ul>
@@ -556,10 +554,12 @@
 
                         $("#logincengo1").hide();
                         $("#kullanıcıAdi").show();
+                        
 
                     }
                     else {
                         $("#kullanıcıAdi").hide();
+                        $("#cartPage").hide();
                     }
                 }
 
@@ -572,47 +572,46 @@
 
     <script>
 
-        $(document).ready(function()
-        {
-            $(".addToCart").click(function()
-            {
+        $(document).ready(function () {
+            $(".addToCart").on('click',function () {
+
+                var Id = $(this).attr('id');
+
                 $.ajax({
 
                     url: "/Home/HideAndShowWithLogIn",
                     success: function (response) {
                         if (response.isSuccess) {
 
-                            alert("Sepete Eklenecek...");
-
-                           var products = new Model();
-                           var dataP = $(this).data();
-                           products.append(dataP);
-                                                                                  
 
                             $.ajax({
-                                        
-                                url: "https://localhost:44360/Cart/ShowCartProducts",
-                                method:"post",
-                                datatype: "json",
-                                data: products,
-                                contentType: false,
-                                processData: false,
+
+                                url: "https://localhost:44360/Cart/AddCart",
+                                //method: "post",
+                                data: {Id : Id},
                                 success : function ()
                                 {
-                                    alert("ulaştı");
+                                    Swal.fire
+                                    ({
 
+                                        icon: 'success',
+                                        title: 'Başarılı',
+                                        text: 'Ürününüz Başarıyla Sepete Eklendi'
 
+                                    });
+
+                                    $("#cartPage").show();
+                                
                                 }
-
-
-
-
-
+                                
                             });
+
+
                             
 
                         }
                         else {
+
 
                             Swal.fire
                             ({
@@ -629,10 +628,10 @@
                     }
 
                 });
-                                      
-            
-            }); 
-        
+
+
+            });
+
         });
 
 

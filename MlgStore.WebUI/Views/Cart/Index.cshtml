@@ -1,15 +1,32 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using MlgStore.WebUI.Models.Dtos;
-@model CardProductsDto
+@using MlgStore.WebUI.Areas.Admin.Models;
+@model ProductIndexViewModel
+<h1>SEPETİM</h1>
+<div class="container">
 
+    <div class="row">
 
-@*<div>
-    @Model.CardProducts
-</div>*@
+        @foreach (var item in Model.Products)
+        {
+            <div class="col">
 
+                <div>
+                    <p>@item.ProductName</p>
+                </div>
 
+            </div>
+        }
+       
+    </div>
 
-<h1>Index</h1>
+</div>
 
+@section styles{
+
+}
+
+@section scripts{
+
+}
