@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Net;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace MlgStore.WebUI.Controllers
 {
@@ -14,14 +16,13 @@ namespace MlgStore.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            
             return View();
         }
 
-
-
-        public IActionResult AddCart(int Id)
+        [HttpPost]
+        public IActionResult AddToCart(int Id)
         {
-
 
             HttpClient client = new HttpClient();
             HttpResponseMessage msg = null;
@@ -35,7 +36,8 @@ namespace MlgStore.WebUI.Controllers
             {
 
                 ProductIndexViewModel viewModel = new ProductIndexViewModel();
-               
+
+
                 jsonContent = msg.Content.ReadAsStringAsync().Result;
 
                 viewModel.Products = JsonConvert.DeserializeObject<List<ApiProductDto>>(jsonContent).Where(x => x.Id == Id).ToList();
@@ -71,7 +73,17 @@ namespace MlgStore.WebUI.Controllers
                 jsonContent = msg.Content.ReadAsStringAsync().Result;
                 viewModel.Shippers = JsonConvert.DeserializeObject<List<ApiShipperDto>>(jsonContent);
 
-                return View(viewModel);
+                var stringModel = JsonConvert.SerializeObject(viewModel);
+
+
+
+                HttpContext.Session.SetString("MyModel", stringModel);
+
+
+
+
+                return Json(new { isSuccess = true });
+
             }
 
             return null;

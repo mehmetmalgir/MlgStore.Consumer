@@ -554,7 +554,8 @@
 
                         $("#logincengo1").hide();
                         $("#kullanıcıAdi").show();
-                        
+                        $("#cartPage").hide();
+
 
                     }
                     else {
@@ -573,7 +574,7 @@
     <script>
 
         $(document).ready(function () {
-            $(".addToCart").on('click',function () {
+            $(".addToCart").on('click', function () {
 
                 var Id = $(this).attr('id');
 
@@ -586,28 +587,32 @@
 
                             $.ajax({
 
-                                url: "https://localhost:44360/Cart/AddCart",
-                                //method: "post",
-                                data: {Id : Id},
-                                success : function ()
+                                url: "https://localhost:44360/Cart/AddToCart",
+                                method: "post",
+                                data: { Id: Id },
+                                success: function (response)
                                 {
-                                    Swal.fire
-                                    ({
+                                    if(response.isSuccess)
+                                    {
+                                        Swal.fire
+                                        ({
 
-                                        icon: 'success',
-                                        title: 'Başarılı',
-                                        text: 'Ürününüz Başarıyla Sepete Eklendi'
+                                            icon: 'success',
+                                            title: 'Başarılı',
+                                            text: 'Ürününüz Başarıyla Sepete Eklendi'
 
-                                    });
+                                        });
 
-                                    $("#cartPage").show();
-                                
+                                        $("#cartPage").show();
+                                    }
+                                   
                                 }
-                                
+
                             });
 
 
-                            
+
+
 
                         }
                         else {

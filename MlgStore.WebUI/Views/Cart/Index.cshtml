@@ -2,24 +2,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using MlgStore.WebUI.Areas.Admin.Models;
-@model ProductIndexViewModel
-<h1>SEPETİM</h1>
+@using MlgStore.WebUI.Models.Entities;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+	var jsonContent = Context.Session.GetString("MyModel");	
+	ProductIndexViewModel model = new ProductIndexViewModel();
+	if (jsonContent != null)	{
+		
+		model = JsonConvert.DeserializeObject<ProductIndexViewModel>(jsonContent);
+	}
+
+
+}
+
+<br />
+<h3 align="center">SEPETİM</h3>
+<br />
+<br />
+
 <div class="container">
 
     <div class="row">
+		
+		<div class="col">
 
-        @foreach (var item in Model.Products)
-        {
-            <div class="col">
+			<table class="table table-hover">
 
-                <div>
-                    <p>@item.ProductName</p>
-                </div>
+				<thead>
+					<tr>
+						<th>Ürün Adı</th>
+						<th>Ürün Fiyatı</th>
+						<th>Ürün Rengi</th>
+						<th>Ürün Bedeni</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in model.Products)
+					{
+						<tr>
+							<td>@item.ProductName</td>
+							<td>@($"{item.QuantityPerUnit},00 TL")</td>
+							<td>@item.Color</td>
+							<td>@item.Size</td>
+						</tr>
+					}					
+				</tbody>
+				
+			</table>
 
-            </div>
-        }
-       
+		</div>	  
+		
     </div>
+
+	<div>
+		<button type="button" class="btn btn-success">
+			Siparişi Tamamla
+		</button>
+	</div>
 
 </div>
 

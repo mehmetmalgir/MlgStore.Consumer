@@ -42,7 +42,7 @@ namespace MlgStore.WebUI.Controllers
 
 
                 HttpContext.Session.SetString("LoggedCustomerUser", jsonStr);
-
+                
                 Response.Cookies.Append("LoggedCustomerUser", jsonStr);
 
                 string addedCustomer = Request.Cookies["LoggedCustomerUser"];
