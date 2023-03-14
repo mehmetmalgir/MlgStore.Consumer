@@ -1,16 +1,18 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using MlgStore.WebUI.Models.Dtos;
 @using MlgStore.WebUI.Areas.Admin.Models;
-@using MlgStore.WebUI.Models.Entities;
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
 @{
 	var jsonContent = Context.Session.GetString("MyModel");	
-	ProductIndexViewModel model = new ProductIndexViewModel();
-	if (jsonContent != null)	{
+	CardProductsDto modelP = new CardProductsDto();	
+	if (jsonContent != null)	
+	{
+		var getir = JsonConvert.DeserializeObject<List<ApiProductDto>>(jsonContent);
+		modelP.CardProducts = getir;
 		
-		model = JsonConvert.DeserializeObject<ProductIndexViewModel>(jsonContent);
 	}
 
 
@@ -38,7 +40,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var item in model.Products)
+					@foreach (var item in modelP.CardProducts)
 					{
 						<tr>
 							<td>@item.ProductName</td>

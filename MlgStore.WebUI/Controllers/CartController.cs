@@ -14,6 +14,7 @@ namespace MlgStore.WebUI.Controllers
 {
     public class CartController : Controller
     {
+      
         public IActionResult Index()
         {
             
@@ -27,18 +28,18 @@ namespace MlgStore.WebUI.Controllers
             HttpClient client = new HttpClient();
             HttpResponseMessage msg = null;
             string jsonContent = string.Empty;
+			CardProductsDto cP = new CardProductsDto();
 
-
-            client.BaseAddress = new Uri("https://localhost:44365/api/Products");
+			client.BaseAddress = new Uri("https://localhost:44365/api/Products");
             msg = client.GetAsync(client.BaseAddress).Result;
 
             if (msg.StatusCode == HttpStatusCode.OK)
             {
 
                 ProductIndexViewModel viewModel = new ProductIndexViewModel();
+				
 
-
-                jsonContent = msg.Content.ReadAsStringAsync().Result;
+				jsonContent = msg.Content.ReadAsStringAsync().Result;
 
                 viewModel.Products = JsonConvert.DeserializeObject<List<ApiProductDto>>(jsonContent).Where(x => x.Id == Id).ToList();
 
@@ -72,12 +73,14 @@ namespace MlgStore.WebUI.Controllers
                 msg = client.GetAsync(client.BaseAddress).Result;
                 jsonContent = msg.Content.ReadAsStringAsync().Result;
                 viewModel.Shippers = JsonConvert.DeserializeObject<List<ApiShipperDto>>(jsonContent);
+                
+				var stringModel = JsonConvert.SerializeObject(viewModel.Products);
 
-                var stringModel = JsonConvert.SerializeObject(viewModel);
+                var cardP = JsonConvert.DeserializeObject<List<ApiProductDto>>(stringModel);
+                cP.CardProducts = cardP;
+                var stringForSession = JsonConvert.SerializeObject(cP.CardProducts);
 
-
-
-                HttpContext.Session.SetString("MyModel", stringModel);
+                HttpContext.Session.SetString("MyModel", stringForSession);
 
 
 

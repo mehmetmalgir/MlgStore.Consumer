@@ -5,6 +5,6 @@ namespace MlgStore.WebUI.Models.Dtos
 {
     public class CardProductsDto
     {
-        public List<ProductIndexViewModel> CardProducts { get; set; }
+        public List<ApiProductDto> CardProducts { get; set; }
     }
 }
