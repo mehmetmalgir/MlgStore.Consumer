@@ -150,11 +150,7 @@
                             <li>
                                 <a id="logincengo1" href="/CustomerAuthentication/Index">Giriş/Yeni Üye</a>
                                 <a id="kullanıcıAdi" href="#"><strong>@($"KULLANICI : {user.FirstName}")</strong></a>
-                            </li>
-
-                            <li>
-                                <a id="cartPage" href="/Cart/Index">Sepetim</a>
-                            </li>
+                            </li>                            
 
                         </ul>
                     </div>
@@ -326,13 +322,13 @@
 
                         $("#logincengo1").hide();
                         $("#kullanıcıAdi").show();
-                        $("#cartPage").hide();
+                        
 
 
                     }
                     else {
                         $("#kullanıcıAdi").hide();
-                        $("#cartPage").hide();
+                        
                     }
                 }
 
@@ -359,7 +355,7 @@
 
                             $.ajax({
 
-                                url: "https://localhost:44360/Cart/AddToCart",
+                                url: "https://localhost:44360/Cart/BuyProduct",
                                 method: "post",
                                 data: { Id: Id },
                                 success: function (response)
@@ -371,11 +367,22 @@
 
                                             icon: 'success',
                                             title: 'Başarılı',
-                                            text: 'Ürününüz Başarıyla Sepete Eklendi'
+                                            text: 'Ürün Satın Alma Başarılı'
 
                                         });
 
-                                        $("#cartPage").show();
+                                        
+                                    }
+                                    else
+                                    {
+                                        Swal.fire
+                                        ({
+
+                                            icon: 'danger',
+                                            title: 'Başarısız',
+                                            text: 'Bir Hata Oluştu.'
+
+                                        });
                                     }
                                    
                                 }
@@ -395,7 +402,7 @@
 
                                 icon: 'error',
                                 title: 'İşlem Başarısız',
-                                text: 'Sepete Ürün Eklemeden Önce Giriş Yapmalı Veya Üye Olmalısınız!'
+                                text: 'Ürün Satın Almadan Önce Giriş Yapmalı Veya Üye Olmalısınız!'
 
                             });
 

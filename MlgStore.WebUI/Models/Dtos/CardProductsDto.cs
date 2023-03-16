@@ -1,10 +1,13 @@
 ﻿using MlgStore.WebUI.Areas.Admin.Models;
+using System;
 using System.Collections.Generic;
 
 namespace MlgStore.WebUI.Models.Dtos
 {
-    public class CardProductsDto
+    public class CardProductsDto : IDto
     {
-        public List<ApiProductDto> CardProducts { get; set; }
+        public ApiProductDto CardProducts { get; set; }
+
+        
     }
 }

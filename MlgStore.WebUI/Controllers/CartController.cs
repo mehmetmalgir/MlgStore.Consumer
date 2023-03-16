@@ -9,93 +9,102 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json.Serialization;
+using FluentValidation.Results;
+using System.Text;
+using MlgStore.WebUI.Models.Entities;
 
 namespace MlgStore.WebUI.Controllers
 {
     public class CartController : Controller
     {
-      
+        
         public IActionResult Index()
         {
-            
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddToCart(int Id)
+        public IActionResult BuyProduct(int Id)
         {
+
 
             HttpClient client = new HttpClient();
             HttpResponseMessage msg = null;
             string jsonContent = string.Empty;
-			CardProductsDto cP = new CardProductsDto();
 
-			client.BaseAddress = new Uri("https://localhost:44365/api/Products");
+
+            client.BaseAddress = new Uri($"https://localhost:44365/api/Products/{Id}");
             msg = client.GetAsync(client.BaseAddress).Result;
 
             if (msg.StatusCode == HttpStatusCode.OK)
+            {              
+
+                jsonContent = msg.Content.ReadAsStringAsync().Result;
+
+                ApiProductDto pDto = new ApiProductDto();
+
+                pDto = JsonConvert.DeserializeObject<ApiProductDto>(jsonContent);
+
+                var jsonCustomer = HttpContext.Session.GetString("LoggedCustomerUser");
+                var customer = JsonConvert.DeserializeObject<Customer>(jsonCustomer);
+                Random r = new Random();
+
+                client = new HttpClient();
+
+                client.BaseAddress = new Uri("https://localhost:44365/api/orders");
+
+
+                var jsonStr = JsonConvert.SerializeObject(new
+                {
+                    CustomerID = customer.Id,
+                    OrderNumber = r.Next(9999),
+                    OrderDate = DateTime.Now,
+                    ShipDate = DateTime.Now,
+                    ShipperID = r.Next(7,10),
+                    Freight = 1,
+                    Paid = pDto.UnitPrice
+
+                });
+
+
+
+                StringContent content = new StringContent(jsonStr, Encoding.UTF8, "application/json");
+
+                msg = new HttpResponseMessage();
+
+                msg = client.PostAsync(client.BaseAddress, content).Result;
+
+                if (msg.StatusCode == HttpStatusCode.Created)
+                {
+                    return Json(new { IsSuccess = true });
+                }
+
+                return Json(new { IsSuccess = true });
+
+
+            }
+            else
             {
 
-                ProductIndexViewModel viewModel = new ProductIndexViewModel();
-				
+              
+                return Json(new { isSuccess = false});
 
-				jsonContent = msg.Content.ReadAsStringAsync().Result;
-
-                viewModel.Products = JsonConvert.DeserializeObject<List<ApiProductDto>>(jsonContent).Where(x => x.Id == Id).ToList();
-
-
-                client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44365/api/Categories");
-                msg = client.GetAsync(client.BaseAddress).Result;
-                jsonContent = msg.Content.ReadAsStringAsync().Result;
-                viewModel.Categories = JsonConvert.DeserializeObject<List<ApiCategoriesDto>>(jsonContent);
-
-                client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44365/api/Colors");
-                msg = client.GetAsync(client.BaseAddress).Result;
-                jsonContent = msg.Content.ReadAsStringAsync().Result;
-                viewModel.Colors = JsonConvert.DeserializeObject<List<ApiColorDto>>(jsonContent);
-
-                client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44365/api/Genders");
-                msg = client.GetAsync(client.BaseAddress).Result;
-                jsonContent = msg.Content.ReadAsStringAsync().Result;
-                viewModel.Genders = JsonConvert.DeserializeObject<List<ApiGenderDto>>(jsonContent);
-
-                client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44365/api/Sizes");
-                msg = client.GetAsync(client.BaseAddress).Result;
-                jsonContent = msg.Content.ReadAsStringAsync().Result;
-                viewModel.Sizes = JsonConvert.DeserializeObject<List<ApiSizeDto>>(jsonContent);
-
-                client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44365/api/Shippers");
-                msg = client.GetAsync(client.BaseAddress).Result;
-                jsonContent = msg.Content.ReadAsStringAsync().Result;
-                viewModel.Shippers = JsonConvert.DeserializeObject<List<ApiShipperDto>>(jsonContent);
-                
-				var stringModel = JsonConvert.SerializeObject(viewModel.Products);
-
-                var cardP = JsonConvert.DeserializeObject<List<ApiProductDto>>(stringModel);
-                cP.CardProducts = cardP;
-                var stringForSession = JsonConvert.SerializeObject(cP.CardProducts);
-
-                HttpContext.Session.SetString("MyModel", stringForSession);
-
-
-
-
-                return Json(new { isSuccess = true });
 
             }
 
-            return null;
+
+
+
+
+
+
+
         }
+         
 
-
-
-
-
-
+       
     }
 }

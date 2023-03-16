@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MlgStore.WebUI.Areas.Admin.Models;
+using MlgStore.WebUI.Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace MlgStore.WebUI
             services.AddControllersWithViews();
             services.AddSession();
             
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +51,7 @@ namespace MlgStore.WebUI
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

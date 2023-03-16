@@ -1,4 +1,6 @@
-﻿namespace MlgStore.WebUI.Areas.Admin.Models
+﻿using System;
+
+namespace MlgStore.WebUI.Areas.Admin.Models
 {
     public class ApiProductDto
     {
@@ -16,7 +18,9 @@
         public int? Discount { get; set; }
         public string Picture { get; set; }
 
-
-
+        internal object Where(Func<object, bool> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
